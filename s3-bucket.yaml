@@ -1,5 +1,11 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: A sample CloudFormation template with YAML comments.
+# Resources section
 Resources:
-  Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: my-bucket.eu
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      # Linux AMI
+      AvailabilityZone: us-east-1
+      ImageId: ami-1234567890abcdef0 
+      InstanceType: t2.micro
