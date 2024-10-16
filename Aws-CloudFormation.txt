@@ -1,0 +1,9 @@
+1. Open visual studio code Editor: file->new file->Filename.yaml->save any folder
+2. Open and copy the Template >Anatomy to visaul Studio code editor from Following link(YAML writter)
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
+3. Add the format version from "2010-09-09"
+4. Description: Add description as required the Ressource being created.
+5. Ressource: The required Ressource section declares the AWS ressources that you want to include in the stack such an EC2, S3, https://docs.aws.amazon.com/cloudformation/
+6. Run the Template: GO to the AWS Account-> Search for CloudFormation service->Upload the Template
+
+important note: Make sure to run the CloudFormation stack in the Regeion- US East(us-east-1)

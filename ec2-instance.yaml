@@ -1,32 +1,11 @@
+---
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Basic EC2 instance creation
-
 Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: t2.micro  # Change as needed
-      ImageId: ami-0e86e20dae9224db8  # Change to the desired AMI ID
-      KeyName: my-key-pair  # Change to your key pair name
-      SecurityGroupIds:
-        - !Ref MySecurityGroup
-      SubnetId: subnet-06088107bbe58752d  # Change to your subnet ID
+      ImageId: ami-06b21ccaeff8cd686
+      InstanceType: t2.micro
 
-  MySecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Enable SSH access
-      VpcId: vpc-0aef98a7a73395e5d  # Change to your VPC ID
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: '22'
-          ToPort: '22'
-          CidrIp: 0.0.0.0/0  # Allow SSH from anywhere (not recommended for production)
-
-Outputs:
-  InstanceId:
-    Description: The Instance ID
-    Value: !Ref MyEC2Instance
-  PublicIP:
-    Description: The Public IP of the instance
-    Value: !GetAtt MyEC2Instance.PublicIp
+#must have already a vpc(default)
