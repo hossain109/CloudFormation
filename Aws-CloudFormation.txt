@@ -7,3 +7,85 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.
 6. Run the Template: GO to the AWS Account-> Search for CloudFormation service->Upload the Template
 
 important note: Make sure to run the CloudFormation stack in the Regeion- US East(us-east-1)
+
+
+Format Anatomy
+1.version
+2.Description
+3.Resources
+4.parameters
+5.metadata
+
+
+
+
+Template Structure
+
+---
+AWSTemplateFormatVersion: version date
+
+Description:
+  String
+
+Metadata:
+  template metadata
+
+Parameters:
+  set of parameters
+
+Rules:
+  set of rules
+
+Mappings:
+  set of mappings
+
+Conditions:
+  set of conditions
+
+Transform:
+  set of transforms
+
+Resources:
+  set of resources
+
+Outputs:
+  set of outputs
+
+
+
+
+Parameter Anatomy
+
+Format version
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  ParameterLogicalID:
+    Description: Information about the parameter
+    Type: DataType
+    Default: value
+    AllowedValues:
+      - value1
+      - value2
+
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Network Configuration"
+        Parameters: 
+          - VPCID
+          - SubnetId
+          - SecurityGroupID
+      - 
+        Label: 
+          default: "Amazon EC2 Configuration"
+        Parameters: 
+          - InstanceType
+          - KeyName
+    ParameterLabels: 
+      VPCID: 
+        default: "Which VPC should this be deployed to?"

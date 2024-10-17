@@ -1,0 +1,44 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Basic EC2 instance creation
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Select ec2 instance"
+        Parameters: 
+          - Ec2AmiID
+      - 
+        Label: 
+          default: "Select ec2 type of instance"
+        Parameters: 
+          - Ec2TypeID
+
+
+Parameters:
+  Ec2AmiID:
+    Description: parameters for custom ec2 instance id
+    Type: String
+    Default: ami-06b21ccaeff8cd686
+    AllowedValues:
+      - ami-0866a3c8686eaeeba
+      - ami-06b21ccaeff8cd686
+  Ec2TypeID:
+    Description: parameters for custom ec2 instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.large
+      - m1.small
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Ec2AmiID # reference as parameters for custom ami id
+      InstanceType: !Ref Ec2TypeID # reference as parameters for custom instance type
+
+#must have already a vpc(default)
