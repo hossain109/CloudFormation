@@ -1,0 +1,71 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+
+Description:
+  Create vpc, subnet and ec2 instance with pârameters and metadata
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Select ec2 instance"
+        Parameters: 
+          - Ec2AmiID
+      - 
+        Label: 
+          default: "Select ec2 type of instance"
+        Parameters: 
+          - Ec2TypeID
+Parameters:
+  Ec2AmiID:
+    Description: parameters for custom ec2 instance id
+    Type: String
+    Default: ami-06b21ccaeff8cd686
+    AllowedValues:
+      - ami-0866a3c8686eaeeba
+      - ami-06b21ccaeff8cd686
+  Ec2TypeID:
+    Description: parameters for custom ec2 instance type
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.large
+      - m1.small
+  VPCidr:
+    Description: Engter the vpc CIDR
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedValues:
+      - 10.0.0.0/16
+      - 10.0.0.0/24
+  SubnetCidr:
+    Description: Enter the Subnet CIDR
+    Type: String
+    Default: 10.0.0.0/24
+    AllowedPattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}/(8|16|24)$
+
+  
+Resources:
+  MyVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCidr
+      EnableDnsHostnames: True
+      Tags: 
+        - Key: "name"
+          Value: "school"
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: !Ref SubnetCidr
+      Tags: 
+        - Key: "name"
+          Value: "school"
+      VpcId: !Ref MyVpc
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref Ec2AmiID
+      InstanceType: !Ref Ec2TypeID
+      SubnetId: !Ref MySubnet
