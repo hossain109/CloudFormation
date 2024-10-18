@@ -100,5 +100,13 @@ Resources:
       Endpoint: mohammadhossain109@gmail.com
       Protocol: email
       TopicArn: !Ref SNSTopics
+#DNS route 53
+HostedZone:
+  Type: AWS::Route53::HostedZone
+  Properties:
+    Name: hossain.com
+    QueryLoggingConfig: 
+      CloudWatchLogsLogGroupArn: arn:aws:logs:region:account-id:log-group:log_group_name
+
 
 #need to setup vpc on aws compte
