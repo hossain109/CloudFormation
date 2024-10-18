@@ -1,0 +1,60 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+
+Description:
+  The template creates autoscaling group
+
+Parameters:
+  ImageID:
+    Description: parameters for custom ec2 instance id
+    Type: String
+    Default: ami-06b21ccaeff8cd686
+    AllowedValues:
+      - ami-06b21ccaeff8cd686
+      - ami-0866a3c8686eaeeba
+
+  InstanceTYPE:
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+
+Resources:
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties: 
+      LaunchTemplateName: webserverTemplate
+      LaunchTemplateData:
+        ImageId: !Ref ImageID
+        InstanceType: !Ref InstanceTYPE
+        UserData:
+          Fn::Base64: 
+            !Sub |
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd.x86_64
+              systemctl start httpd.service
+              systemctl enable httpd.service
+              echo "Hello from Hossain CloudFormation course with HOSSAIN Mohammad"
+  AutoscalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: HossainASG
+      AvailabilityZones: 
+        - us-east-1a
+        - us-east-1b
+      DesiredCapacity: 2
+      MinSize: 1
+      MaxSize: 2
+      VPCZoneIdentifier: 
+        - subnet-06569bb0f03247451
+        - subnet-07b5fcdd494f8419f
+      LaunchTemplate:
+        LaunchTemplateId: !Ref LaunchTemplate
+        Version: "1"
+
+
+#need to setup vpc on aws compte
